@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Monitoramento Simulado</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { padding: 2rem; }
+    .down { color: #a00; font-weight: 600; }
+    .up { color: #0a0; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mb-3">Monitoramento Simulado — Serviços</h1>
+    <p class="text-muted">Atualiza a cada 5s. Última atualização em <span id="last">—</span>.</p>
+
+    <table class="table table-striped" id="svc-table">
+      <thead>
+        <tr>
+          <th>Serviço</th>
+          <th>Status</th>
+          <th>Latency (ms)</th>
+          <th>Uptime (%)</th>
+          <th>Última checagem</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    async function fetchStatus() {
+      try {
+        const res = await fetch('/status');
+        const data = await res.json();
+        const tbody = document.querySelector('#svc-table tbody');
+        tbody.innerHTML = '';
+        const services = data.services;
+        for (const [name, s] of Object.entries(services)) {
+          const tr = document.createElement('tr');
+          const statusClass = s.up ? 'up' : 'down';
+          tr.innerHTML = `
+            <td>${name}</td>
+            <td class="${statusClass}">${s.up ? 'UP' : 'DOWN'}</td>
+            <td>${s.latency_ms}</td>
+            <td>${s.uptime_pct}</td>
+            <td>${s.last_checked || '-'}</td>
+          `;
+          tbody.appendChild(tr);
+        }
+        document.getElementById('last').textContent = data.timestamp || '-';
+      } catch (err) {
+        console.error('Erro buscando /status', err);
+      }
+    }
+
+    // Polling a cada 5s
+    fetchStatus();
+    setInterval(fetchStatus, 5000);
+  </script>
+</body>
+</html>
