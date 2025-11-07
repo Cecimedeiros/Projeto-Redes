@@ -46,6 +46,7 @@ Simular o comportamento de serviços de rede em uma aplicação local, com atual
 ---
 ## 📖 **Documentação**
   - [Documento - em docs](https://docs.google.com/document/d/1Ko0QQBonAQaBYHYeGtxhrRbqqyCbiEgpNdyNqflpDK8/edit?usp=sharing)
+  - [Figma](https://www.figma.com/design/gvIiqnEewr6VqP7KnQI1lA/Untitled?node-id=0-1&t=IoJt3b7r3bZY4JSV-1)
 
 ---
 ### Equipe e Contato
