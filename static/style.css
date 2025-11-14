@@ -1,0 +1,207 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #020b1a;
+  color: #28d1cf;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sim-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2.5rem 1.5rem 2rem;
+  position: relative;
+}
+
+.sim-title {
+  text-align: center;
+  font-size: 1.9rem;
+  letter-spacing: .12em;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* PAINEIS LATERAIS */
+
+.panel {
+  border: 3px solid rgba(15, 90, 120, 0.8);
+  border-radius: 30px;
+  padding: 1.8rem 2rem;
+  background: rgba(2, 11, 26, 0.9);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+}
+
+.panel-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* LISTA DE SERVIÇOS */
+
+#service-list {
+  list-style: none;
+  font-size: 1rem;
+  margin-bottom: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.service-item {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(40, 209, 207, 0.12);
+}
+
+.svc-name-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.15rem;
+}
+
+.svc-name-line .name {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.state {
+  font-weight: 600;
+}
+
+.state-up   { color: #28d1cf; }
+.state-down { color: #ff4b5c; }
+
+.svc-meta-line {
+  font-size: 0.85rem;
+  color: #8bdedf;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  opacity: 0.9;
+}
+
+.svc-meta-line span.label {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.panel-time {
+  font-size: 1rem;
+  letter-spacing: .15em;
+  margin-top: 0.8rem;
+}
+
+/* Métricas gerais */
+
+.metric {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.9rem;
+}
+
+.metric span.value {
+  margin-left: .4rem;
+  font-weight: 700;
+}
+
+.metric-ok    { color: #28d1cf; }
+.metric-error { color: #ff4b5c; }
+
+/* CENTRO: PESSOA + ECG + CORAÇÃO */
+
+.center-area {
+  position: relative;
+  height: 360px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* corpo lá no fundo */
+.person-img {
+  height: 100%;
+  max-height: 340px;
+  opacity: 0.9;
+  position: relative;
+  z-index: 1;
+}
+
+/* IMAGEM DO ECG – ATRÁS do coração, dentro da coluna central, sem pegar textos */
+.ecg-img {
+  position: absolute;
+  top: 53%;                 /* altura aproximada na altura do peito */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 950px;         /* controla o comprimento da linha */
+  opacity: 0.95;
+  pointer-events: none;     /* não bloqueia cliques em nada */
+  z-index: 2;               /* acima do corpo, abaixo do coração */
+}
+
+/* coração batendo, NA FRENTE do ECG */
+.heart-img {
+  position: absolute;
+  width: 110px;
+  max-width: 25%;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  animation: heartBeat 0.7s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%   { transform: translate(-50%, -50%) scale(1); }
+  20%  { transform: translate(-50%, -50%) scale(1.18); }
+  40%  { transform: translate(-50%, -50%) scale(1); }
+  60%  { transform: translate(-50%, -50%) scale(1.12); }
+  80%  { transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* horário / atualização */
+
+.center-time {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 1rem;
+  letter-spacing: .15em;
+}
+
+.last-update {
+  text-align: center;
+  font-size: .9rem;
+  color: #6bd9d2;
+  margin-top: .4rem;
+  opacity: .8;
+}
+
+/* responsivo */
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .center-area {
+    order: -1;
+    margin-bottom: 1.5rem;
+  }
+}
